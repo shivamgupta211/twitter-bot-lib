@@ -1,0 +1,62 @@
+{
+  "name": "twitterbotlib",
+  "description": "Twitter Bot API",
+  "version": "0.1.0",
+  "main": "lib.js",
+  "author": "Patryk Rzucidlo [@ptkdev] <support@ptkdev.io> (https://ptkdev.it)",
+  "license": "GPL-3.0",
+  "homepage": "https://twitter.bot.ptkdev.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/social-manager-tools/twitter-bot-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/social-manager-tools/twitter-bot-lib/issues"
+  },
+  "scripts": {
+    "start": "node bot.js",
+    "start-forever": "forever -o ./logs/debug.log -e ./logs/errors.log start bot.js",
+    "start-pm2": "pm2 -o ./logs/debug.log -e ./logs/errors.log start lib.js",
+    "start-pm2-nolog": "pm2 -o /dev/null -e ./logs/errors.log start lib.js ",
+    "stop": "killall node",
+    "stop-forever": "forever stop bot.js",
+    "stop-pm2": "pm2 stop bot.js",
+    "clean": "rm -r node_modules && rm package-lock.json && npm install",
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore --fix",
+    "precommit-lint-check": "echo 'Pre-commit lint checks...' && exit 0"
+  },
+  "pre-commit": [
+    "precommit-lint-check",
+    "lint"
+  ],
+  "keywords": [
+    "bot",
+    "ptkdev",
+    "twitter",
+    "twitter-lib",
+    "twitter-api",
+    "twitter-bot",
+    "puppeteer",
+    "selenium",
+    "webdriverio"
+  ],
+  "dependencies": {
+    "colors": "^1.2.1",
+    "eslint": "^4.19.1",
+    "path": "^0.12.7",
+    "puppeteer": "1.4.0",
+    "request": "^2.85.0"
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-snakecasejs": "^1.0.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "pre-commit": "^1.2.2"
+  }
+}
