@@ -1,6 +1,6 @@
 <p align="center"><a href="https://twitter.bot.ptkdev.io" alt="Screenshot"><img src="https://ptkdev.it/img/bot/twitter-bot-lib.png"></a></p>
 
-<p align="center"><h1 align="center">Twitter Bot (Libray)</h1></p>
+<p align="center"><h1 align="center">Twitter Bot (Library)</h1></p>
 
 <p align="center"><a href="#" alt="License"><img src="https://img.shields.io/badge/license-GLPv3-brightgreen.svg"></a>
 <a href="https://github.com/GoogleChrome/puppeteer" alt="powered by puppeteer"><img src="https://img.shields.io/badge/powered%20by-puppeteer-46aef7.svg"></a>
