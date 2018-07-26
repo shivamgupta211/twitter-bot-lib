@@ -17,6 +17,8 @@ class Likemode_realistic extends Manager_state {
         this.config = config;
         this.utils = utils;
         this.cache_hash_tags = [];
+        this.tweet_liked = [];
+        this.tweet_current = "";
         this.LOG_NAME = "like_realistic";
         this.STATE = require("../common/state").STATE;
         this.STATE_EVENTS = require("../common/state").EVENTS;
@@ -104,6 +106,16 @@ class Likemode_realistic extends Manager_state {
                 this.log.error(`goto ${err}`);
             }
         }
+
+        this.tweet_current = tweet_url;
+        if (typeof tweet_url !== "undefined"){
+            if(typeof this.tweet_liked[this.tweet_current] === "undefined"){
+                this.tweet_liked[this.tweet_current] = 1;
+            }else{
+                this.tweet_liked[this.tweet_current]++;
+            }
+            
+        }
         await this.utils.sleep(this.utils.random_interval(4, 8));
     }
 
@@ -119,8 +131,12 @@ class Likemode_realistic extends Manager_state {
         try {
             await this.bot.waitForSelector("button.js-actionFavorite");
             let button = await this.bot.$("button.js-actionFavorite");
-            await button.click();
-            this.log.info("<3");
+            if(this.tweet_liked[this.tweet_current] > 1){
+                this.log.warning("</3 liked previously");
+            }else{
+                await button.click();
+                this.log.info("<3");
+            }
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
         } catch (err) {
             if (this.utils.is_debug())
