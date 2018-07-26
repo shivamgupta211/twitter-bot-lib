@@ -17,6 +17,8 @@ class Retweetmode_realistic extends Manager_state {
         this.config = config;
         this.utils = utils;
         this.cache_hash_tags = [];
+        this.tweet_retweeted = [];
+        this.tweet_current = "";
         this.LOG_NAME = "rt_realistic";
         this.STATE = require("../common/state").STATE;
         this.STATE_EVENTS = require("../common/state").EVENTS;
@@ -104,6 +106,16 @@ class Retweetmode_realistic extends Manager_state {
                 this.log.error(`goto ${err}`);
             }
         }
+
+        this.tweet_current = tweet_url;
+        if (typeof tweet_url !== "undefined"){
+            if(typeof this.tweet_retweeted[this.tweet_current] === "undefined"){
+                this.tweet_retweeted[this.tweet_current] = 1;
+            }else{
+                this.tweet_retweeted[this.tweet_current]++;
+            }
+            
+        }
         await this.utils.sleep(this.utils.random_interval(4, 8));
     }
 
@@ -117,16 +129,20 @@ class Retweetmode_realistic extends Manager_state {
         this.log.info("try rt");
 
         try {
-            await this.bot.waitForSelector("button.js-actionRetweet");
-            let button = await this.bot.$("button.js-actionRetweet");
-            await button.click();
-            await this.utils.sleep(this.utils.random_interval(2, 3));
-            
-            await this.bot.waitForSelector("button.retweet-action");
-            let buttonbig = await this.bot.$("button.retweet-action");
-            await buttonbig.click();
-            
-            this.log.info("RT");
+            if(this.tweet_retweeted[this.tweet_current] > 1){
+                this.log.warning("NOT RT, retweeted previously");
+            }else{
+                await this.bot.waitForSelector("button.js-actionRetweet");
+                let button = await this.bot.$("button.js-actionRetweet");
+                await button.click();
+                await this.utils.sleep(this.utils.random_interval(2, 3));
+                
+                await this.bot.waitForSelector("button.retweet-action");
+                let buttonbig = await this.bot.$("button.retweet-action");
+                await buttonbig.click();
+                this.log.info("RT");
+            }
+
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
         } catch (err) {
             if (this.utils.is_debug())

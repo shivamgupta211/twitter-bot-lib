@@ -4,7 +4,7 @@
 
 <p align="center"><a href="#" alt="License"><img src="https://img.shields.io/badge/license-GLPv3-brightgreen.svg"></a>
 <a href="https://github.com/GoogleChrome/puppeteer" alt="powered by puppeteer"><img src="https://img.shields.io/badge/powered%20by-puppeteer-46aef7.svg"></a>
-<a href="https://github.com/social-manager-tools/twitter-bot.js/releases" alt="Version"><img src="https://img.shields.io/badge/version-v0.1.0-lightgrey.svg"></a>
+<a href="https://github.com/social-manager-tools/twitter-bot.js/releases" alt="Version"><img src="https://img.shields.io/badge/version-v0.2.0-lightgrey.svg"></a>
 <a href="https://slack.ptkdev.io" alt="Slack Chat"><img src="https://img.shields.io/badge/chat%20on-Slack-orange.svg"></a>
 <a href="http://blog.ptkdev.io" alt="Blog"><img src="https://img.shields.io/badge/blog-medium-2AE176.svg"></a>
 <a href="https://twitter.com/ptkdevio" alt="Twitter"><img src="https://img.shields.io/badge/twitter-ptkdevio-2AA3EF.svg"></a>   
@@ -32,7 +32,7 @@ This library (node module) provides api for include <a href="https://github.com/
 
 ## Fast usage
 1. Run `npm install twitterbotlib`
-2. Get [config.js](https://raw.githubusercontent.com/social-manager-tools/twitter-bot-lib/0.1.0/config.js.tpl) file for step 3, fill it properly and remove `.tpl` suffix.
+2. Get [config.js](https://raw.githubusercontent.com/social-manager-tools/twitter-bot-lib/0.2.0/config.js.tpl) file for step 3, fill it properly and remove `.tpl` suffix.
 3. On your code require library, config and run bot, example:
 ```
     const config = require ("./config");
