@@ -69,6 +69,8 @@ module.exports = function(config) {
             });
         }
         bot = await browser.newPage();
+        bot.setViewport({ "width": 1024, "height": 768 });
+        bot.setUserAgent("Mozilla/5.0 (X11; SocialManagerToolsLinux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36");
 
         /**
          * Import libs
