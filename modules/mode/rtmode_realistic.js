@@ -48,6 +48,7 @@ class Retweetmode_realistic extends Manager_state {
         let hashtag_tag = this.utils.get_random_hash_tag();
         this.log.info(`current hashtag ${hashtag_tag}`);
         try {
+            hashtag_tag = hashtag_tag.replace("#", "%23");
             await this.bot.goto("https://twitter.com/search?f=tweets&vertical=default&q=" + hashtag_tag + "&src=typd&l="+this.config.twitter_language);
         } catch (err) {
             this.log.error(`goto ${err}`);
@@ -132,8 +133,8 @@ class Retweetmode_realistic extends Manager_state {
             if(this.tweet_retweeted[this.tweet_current] > 1){
                 this.log.warning("NOT RT, retweeted previously");
             }else{
-                await this.bot.waitForSelector("button.js-actionRetweet");
-                let button = await this.bot.$("button.js-actionRetweet");
+                await this.bot.waitForSelector(".permalink-tweet-container button.js-actionRetweet");
+                let button = await this.bot.$(".permalink-tweet-container button.js-actionRetweet");
                 await button.click();
                 await this.utils.sleep(this.utils.random_interval(2, 3));
                 

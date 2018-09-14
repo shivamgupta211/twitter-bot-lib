@@ -48,6 +48,7 @@ class Likemode_realistic extends Manager_state {
         let hashtag_tag = this.utils.get_random_hash_tag();
         this.log.info(`current hashtag ${hashtag_tag}`);
         try {
+            hashtag_tag = hashtag_tag.replace("#", "%23");
             await this.bot.goto("https://twitter.com/search?f=tweets&vertical=default&q=" + hashtag_tag + "&src=typd&l="+this.config.twitter_language);
         } catch (err) {
             this.log.error(`goto ${err}`);
@@ -129,8 +130,8 @@ class Likemode_realistic extends Manager_state {
         this.log.info("try heart like");
 
         try {
-            await this.bot.waitForSelector("button.js-actionFavorite");
-            let button = await this.bot.$("button.js-actionFavorite");
+            await this.bot.waitForSelector(".permalink-tweet-container button.js-actionFavorite");
+            let button = await this.bot.$(".permalink-tweet-container button.js-actionFavorite");
             if(this.tweet_liked[this.tweet_current] > 1){
                 this.log.warning("</3 liked previously");
             }else{

@@ -2,7 +2,7 @@
 
 # Twitter Bot (Library)
 
-[![](https://img.shields.io/badge/license-GLPv3-brightgreen.svg)](#) [![](https://img.shields.io/badge/powered%20by-puppeteer-46aef7.svg)](https://github.com/GoogleChrome/puppeteer) [![](https://img.shields.io/badge/version-v0.2.1-lightgrey.svg)](https://github.com/social-manager-tools/twitter-bot.js/releases) [![](https://img.shields.io/badge/chat%20on-slack-orange.svg)](https://slack.ptkdev.io) [![](https://img.shields.io/badge/blog-medium-2AE176.svg)](http://blog.ptkdev.io) [![](https://img.shields.io/badge/twitter-ptkdevio-2AA3EF.svg)](https://twitter.com/ptkdevio) [![](https://img.shields.io/badge/help-support@ptkdev.io-fbbc05.svg)](mailto:support@ptkdev.io)
+[![](https://img.shields.io/badge/license-GLPv3-brightgreen.svg)](#) [![](https://img.shields.io/badge/powered%20by-puppeteer-46aef7.svg)](https://github.com/GoogleChrome/puppeteer) [![](https://img.shields.io/badge/version-v0.2.2-lightgrey.svg)](https://github.com/social-manager-tools/twitter-bot.js/releases) [![](https://img.shields.io/badge/chat%20on-slack-orange.svg)](https://slack.ptkdev.io) [![](https://img.shields.io/badge/blog-medium-2AE176.svg)](http://blog.ptkdev.io) [![](https://img.shields.io/badge/twitter-ptkdevio-2AA3EF.svg)](https://twitter.com/ptkdevio) [![](https://img.shields.io/badge/help-support@ptkdev.io-fbbc05.svg)](mailto:support@ptkdev.io)
 
 [![](https://img.shields.io/badge/donate-patreon-F87668.svg)](http://patreon.ptkdev.io) [![](https://img.shields.io/badge/donate-paypal-46AFE0.svg)](http://paypal.ptkdev.io) [![](https://img.shields.io/badge/buy%20me-coffee-4B788C.svg)](http://coffee.ptkdev.io)
 
@@ -27,7 +27,7 @@ This library (node module) provides api for include [twitter-bot.js](https://git
 
 ## Fast usage
 1. Run `npm install twitterbotlib`
-2. Get [config.js](https://raw.githubusercontent.com/social-manager-tools/twitter-bot-lib/0.2.0/config.js.tpl) file for step 3, fill it properly and remove `.tpl` suffix.
+2. Get [config.js](https://raw.githubusercontent.com/social-manager-tools/twitter-bot-lib/0.2.2/config.js.tpl) file for step 3, fill it properly and remove `.tpl` suffix.
 3. On your code require library, config and run bot, example:
 ```
     const config = require ("./config");
