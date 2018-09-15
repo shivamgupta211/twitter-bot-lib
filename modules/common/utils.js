@@ -229,7 +229,9 @@ class Utils {
      * @return array
      */
     mix_array(arr) {
-        return arr.sort(function() { return 0.5 - Math.random(); });
+        return arr.sort(function() {
+            return 0.5 - Math.random(); 
+        });
     }
 
     /**
@@ -259,4 +261,6 @@ class Utils {
     }
 }
 
-module.exports = (bot, config, utils) => { return new Utils(bot, config, utils); };
+module.exports = (bot, config, utils) => {
+    return new Utils(bot, config, utils); 
+};

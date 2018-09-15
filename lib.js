@@ -59,13 +59,15 @@ module.exports = function(config) {
         if (config.executable_path === "" || config.executable_path === false) {
             browser = await puppeteer.launch({
                 headless: config.chrome_headless,
-                args: config.chrome_options
+                args: config.chrome_options,
+                defaultViewport : { 'width' : 1024, 'height' : 768 }
             });
         } else {
             browser = await puppeteer.launch({
                 headless: config.chrome_headless,
                 args: config.chrome_options,
-                executablePath: config.executable_path
+                executablePath: config.executable_path,
+                defaultViewport : { 'width' : 1024, 'height' : 768 }
             });
         }
         bot = await browser.newPage();
