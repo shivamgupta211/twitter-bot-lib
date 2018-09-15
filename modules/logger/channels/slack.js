@@ -102,4 +102,6 @@ class Slack {
     }
 }
 
-module.exports = config => { return new Slack(config); };
+module.exports = config => {
+    return new Slack(config); 
+};

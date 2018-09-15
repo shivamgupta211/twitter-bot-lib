@@ -69,8 +69,9 @@ class Twofa extends Manager_state{
             let button = await this.bot.$("form input#email_challenge_submit");
             await button.click();
         } catch (err) {
-            if (this.utils.is_debug())
+            if (this.utils.is_debug()) {
                 this.log.error(err);
+            }
         }
     }
 
@@ -85,10 +86,11 @@ class Twofa extends Manager_state{
 
         try {
             attr = await this.bot.$("input#"+selector);
-            if (attr != null)
+            if (attr != null) {
                 this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.STOP_BOT);
-            else
+            } else {
                 this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
+            }
         } catch (err) {
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
         }
@@ -106,10 +108,11 @@ class Twofa extends Manager_state{
         if (this.is_ok()) {
             try {
                 attr = await this.bot.$("input.email-input");
-                if (attr !== null)
+                if (attr !== null) {
                     this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.STOP_BOT);
-                else
+                } else {
                     this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
+                }
             } catch (err) {
                 this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.STOP_BOT);
             }
@@ -137,10 +140,11 @@ class Twofa extends Manager_state{
         try {
             let attr = await this.bot.$("input#challenge_response");
 
-            if (attr !== null)
+            if (attr !== null) {
                 this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
-            else
+            } else {
                 this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.ERROR);
+            }
         } catch (err) {
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.ERROR);
         }
@@ -185,4 +189,6 @@ class Twofa extends Manager_state{
 }
 
 
-module.exports = (bot, config, utils) => { return new Twofa(bot, config, utils); };
+module.exports = (bot, config, utils) => {
+    return new Twofa(bot, config, utils); 
+};

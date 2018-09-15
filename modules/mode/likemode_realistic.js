@@ -78,14 +78,16 @@ class Likemode_realistic extends Manager_state {
 
                 await this.utils.sleep(this.utils.random_interval(10, 15));
 
-                if (this.utils.is_debug())
+                if (this.utils.is_debug()) {
                     this.log.debug(`array tweets ${this.cache_hash_tags}`);
+                }
 
                 tweet_url = this.get_tweet_url();
 
                 this.log.info(`current tweet url ${tweet_url}`);
-                if (typeof tweet_url === "undefined")
+                if (typeof tweet_url === "undefined") {
                     this.log.warning("check if current hashtag have tweets, you write it good in config.js? Bot go to next hashtag.");
+                }
 
                 await this.utils.sleep(this.utils.random_interval(4, 8));
 
@@ -140,8 +142,9 @@ class Likemode_realistic extends Manager_state {
             }
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
         } catch (err) {
-            if (this.utils.is_debug())
+            if (this.utils.is_debug()) {
                 this.log.debug(err);
+            }
 
             this.log.warning("</3");
             this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.ERROR);
@@ -174,8 +177,9 @@ class Likemode_realistic extends Manager_state {
                 this.log.info("loading... " + new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()));
                 this.log.info("cache array size " + this.cache_hash_tags.length);
 
-                if (this.cache_hash_tags.length <= 0)
+                if (this.cache_hash_tags.length <= 0) {
                     await this.open_hashtagpage();
+                }
 
                 await this.utils.sleep(this.utils.random_interval(4, 8));
 
@@ -199,4 +203,6 @@ class Likemode_realistic extends Manager_state {
 
 }
 
-module.exports = (bot, config, utils) => { return new Likemode_realistic(bot, config, utils); };
+module.exports = (bot, config, utils) => {
+    return new Likemode_realistic(bot, config, utils); 
+};
