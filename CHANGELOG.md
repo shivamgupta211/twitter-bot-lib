@@ -1,3 +1,7 @@
+# v0.2.4 (September 26, 2018)
+* Upgrade: puppeteer v1.6.2 
+
+
 # v0.2.3 (September 15, 2018)
 * Downgrade: puppeteer v1.4.0 
 

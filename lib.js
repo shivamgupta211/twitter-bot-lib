@@ -60,19 +60,20 @@ module.exports = function(config) {
             browser = await puppeteer.launch({
                 headless: config.chrome_headless,
                 args: config.chrome_options,
-                defaultViewport : { 'width' : 1024, 'height' : 768 }
+                defaultViewport : { "width" : 1024, "height" : 768 }
             });
         } else {
             browser = await puppeteer.launch({
                 headless: config.chrome_headless,
                 args: config.chrome_options,
                 executablePath: config.executable_path,
-                defaultViewport : { 'width' : 1024, 'height' : 768 }
+                defaultViewport : { "width" : 1024, "height" : 768 }
             });
         }
         bot = await browser.newPage();
         bot.setViewport({ "width": 1024, "height": 768 });
-        bot.setUserAgent("Mozilla/5.0 (X11; SocialManagerToolsLinux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36");
+        let user_agent = await this.browser.userAgent();
+        bot.setUserAgent(user_agent.replace("Headless",""));
 
         /**
          * Import libs

@@ -1,7 +1,7 @@
 {
   "name": "twitterbotlib",
   "description": "Twitter Bot API",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "lib.js",
   "author": "Patryk Rzucidlo [@ptkdev] <support@ptkdev.io> (https://ptkdev.it)",
   "license": "GPL-3.0",
@@ -44,7 +44,7 @@
     "colors": "^1.2.1",
     "eslint": "^4.19.1",
     "path": "^0.12.7",
-    "puppeteer": "1.4.0",
+    "puppeteer": "1.6.2",
     "request": "^2.85.0"
   },
   "engines": {
