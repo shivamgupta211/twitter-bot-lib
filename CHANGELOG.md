@@ -1,3 +1,7 @@
+# v0.2.5 (October 02, 2018)
+* Fix: Startup error
+
+
 # v0.2.4 (September 26, 2018)
 * Upgrade: puppeteer v1.6.2 
 
