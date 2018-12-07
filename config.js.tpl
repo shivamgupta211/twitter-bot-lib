@@ -24,6 +24,7 @@ module.exports = {
     "chrome_headless": false,
     "chrome_options": ["--disable-gpu", "--no-sandbox", "--window-size=1920x1080"],
     "executable_path": "", // example for Mac OS: /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+    "user_agent": "", // set Puppeteers user agent
 
     // LOG
     "pin_path":"./node_modules/twitterbotlib/loginpin.txt",
