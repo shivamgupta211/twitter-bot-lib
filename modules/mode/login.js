@@ -10,6 +10,7 @@
  *
  */
 const Manager_state = require("../common/state").Manager_state;
+const jsonfile = require("jsonfile");
 class Login extends Manager_state {
     constructor(bot, config, utils) {
         super();
@@ -21,6 +22,42 @@ class Login extends Manager_state {
         this.STATE_EVENTS = require("../common/state").EVENTS;
         this.Log = require("../logger/Log");
         this.log = new this.Log(this.LOG_NAME, this.config);
+        this.session = null;
+        this.sessionFilePath = "session.json";
+    }
+
+    /**
+     * Trying read file with session
+     */
+    async read_session_file() {
+        jsonfile.readFile(this.sessionFilePath, (err, data) => {  
+            if (err || data.length === 0) {
+                this.log.info("Cant restore session.");
+            }
+
+            this.session = data;
+        });
+    }
+
+    /**
+     * Check for existing session
+     */
+    session_exists() {
+        return this.session;
+    }
+
+    /**
+     * Restore session
+     */
+    async restore_session() {
+        if (this.session.length !== 0) {
+            for (let cookie of this.session) {
+                await this.bot.setCookie(cookie);
+            }
+
+            return true;
+        }
+        this.log.error("Can't restore session. Session is empty.");
     }
 
     /**
@@ -105,7 +142,21 @@ class Login extends Manager_state {
             await this.utils.screenshot(this.LOG_NAME, "checkerrors_error");
         } else {
             this.log.info("password is correct");
+            
             await this.utils.screenshot(this.LOG_NAME, "checkerrors");
+
+            await this.utils.sleep(this.utils.random_interval(4, 8));
+
+            const cookiesObject = await this.bot.cookies();
+
+            jsonfile.writeFile(this.sessionFilePath, cookiesObject, { spaces: 2 }, (err) => {
+                if (err) {
+                    this.log.info("The file could not be written.", err);
+                    this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.ERROR);
+                }
+                this.log.info("Session has been successfully saved");
+                this.emit(this.STATE_EVENTS.CHANGE_STATUS, this.STATE.OK);
+            });
         }
 
         await this.utils.sleep(this.utils.random_interval(4, 8));
@@ -119,23 +170,40 @@ class Login extends Manager_state {
     async start() {
         this.log.info("loading...");
 
-        await this.open_loginpage();
+        this.log.info("checking for session to restore...");
+
+        this.log.info("exist: ", this.session_exists());
+
+        await this.read_session_file();
 
         await this.utils.sleep(this.utils.random_interval(4, 8));
 
-        await this.set_username();
+        if (this.session_exists()) {
+            this.log.info("restoring session...");
 
-        await this.utils.sleep(this.utils.random_interval(4, 8));
+            await this.restore_session();
 
-        await this.set_password();
+            this.log.info("Session restored correctly.");
+        } else {
+            await this.open_loginpage();
 
-        await this.utils.sleep(this.utils.random_interval(4, 8));
+            await this.utils.sleep(this.utils.random_interval(4, 8));
 
-        await this.submitform();
+            await this.set_username();
+
+            await this.utils.sleep(this.utils.random_interval(4, 8));
+
+            await this.set_password();
+
+            await this.utils.sleep(this.utils.random_interval(4, 8));
+
+            await this.submitform();
+        }
 
         await this.utils.sleep(this.utils.random_interval(4, 8));
 
         await this.submitverify();
+
         this.log.info("login_status is " + this.get_status());
 
         await this.utils.sleep(this.utils.random_interval(4, 8));
