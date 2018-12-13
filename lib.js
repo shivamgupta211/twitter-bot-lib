@@ -97,7 +97,7 @@ module.exports = function(config) {
         async function switch_mode(log) {
             let strategy = routes[config.bot_mode];
             if (strategy !== undefined) {
-                await strategy(bot, config, utils).start();
+                await strategy(bot, config, utils, browser).start();
             } else {
                 log(LOG.ERROR, "switch_mode", `mode ${strategy} not exist!`);
             }
