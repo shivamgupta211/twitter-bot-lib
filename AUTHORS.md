@@ -27,4 +27,10 @@
 
 `Designer, make official logo - January 28, 2018`
 * Twitter: [https://twitter.com/TaniK72](https://twitter.com/TaniK72)
-* Twitter: [https://twitter.com/TaniK72](https://twitter.com/TaniK72)
+
+# Archon (@Archon-) archon.sh@gmail.com
+[![https://twitter.com/_Archon_](https://avatars2.githubusercontent.com/u/1331632?s=150)](https://twitter.com/_Archon_)
+
+`Developer - December 7, 2018`
+* Twitter: [https://twitter.com/_Archon_](https://twitter.com/_Archon_)
+* GitHub: [https://github.com/Archon-](https://github.com/Archon-)
