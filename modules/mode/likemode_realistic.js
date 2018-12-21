@@ -10,10 +10,12 @@
  * 
  */
 const Manager_state = require("../common/state").Manager_state;
+
 class Likemode_realistic extends Manager_state {
-    constructor(bot, config, utils) {
+    constructor(bot, config, utils, browser) {
         super();
         this.bot = bot;
+        this.browser = browser;
         this.config = config;
         this.utils = utils;
         this.cache_hash_tags = [];
@@ -24,6 +26,10 @@ class Likemode_realistic extends Manager_state {
         this.STATE_EVENTS = require("../common/state").EVENTS;
         this.Log = require("../logger/Log");
         this.log = new this.Log(this.LOG_NAME, this.config);
+        this.login = require("./login.js")(bot, config, utils);
+        this.loggedIn = true;
+
+        this.login.set_start();
     }
 
     /**
@@ -156,6 +162,14 @@ class Likemode_realistic extends Manager_state {
     }
 
     /**
+     * close browser
+     */
+    async close_browser() {
+        await this.browser.close();
+        this.loggedIn = false;
+    }
+
+    /**
      * LikemodeClassic Flow
      * =====================
      *
@@ -168,11 +182,20 @@ class Likemode_realistic extends Manager_state {
         do {
             today = new Date();
             this.log.info("time night: " + (parseInt(today.getHours() + "" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes())));
+
+            await this.utils.sleep(this.utils.random_interval(4, 8));
             
             if(this.config.bot_sleep_night === false){
                 this.config.bot_stop_sleep = "00:00";
             }
             if ((parseInt(today.getHours() + "" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes()) >= (this.config.bot_stop_sleep).replace(":", ""))) {
+                if(!this.loggedIn) {
+                    this.log.info("Starting bot again...");
+                    let loggedIn = this.loggedIn;
+                    await this.login.start(() => {
+                        loggedIn = true;
+                    });
+                }
 
                 this.log.info("loading... " + new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds()));
                 this.log.info("cache array size " + this.cache_hash_tags.length);
@@ -192,10 +215,18 @@ class Likemode_realistic extends Manager_state {
                 if (this.cache_hash_tags.length <= 0 && this.is_not_ready()) {
                     this.log.info("finish fast like, bot sleep " + this.config.bot_fastlike_min + "-" + this.config.bot_fastlike_max + " minutes");
                     this.cache_hash_tags = [];
+                    if (this.config.close_browser_sleep) {
+                        this.log.info("closing browser");
+                        this.close_browser();
+                    }
                     await this.utils.sleep(this.utils.random_interval(60 * this.config.bot_fastlike_min, 60 * this.config.bot_fastlike_max));
                 }
             } else {
                 this.log.info("is night, bot sleep");
+                if (this.config.close_browser_sleep) {
+                    this.log.info("closing browser");
+                    this.close_browser();
+                }    
                 await this.utils.sleep(this.utils.random_interval(60 * 4, 60 * 5));
             }
         } while (true);
@@ -203,6 +234,6 @@ class Likemode_realistic extends Manager_state {
 
 }
 
-module.exports = (bot, config, utils) => {
-    return new Likemode_realistic(bot, config, utils); 
+module.exports = (bot, config, utils, browser) => {
+    return new Likemode_realistic(bot, config, utils, browser); 
 };

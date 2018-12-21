@@ -24,6 +24,9 @@ module.exports = {
     "chrome_headless": false,
     "chrome_options": ["--disable-gpu", "--no-sandbox", "--window-size=1920x1080"],
     "executable_path": "", // example for Mac OS: /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+    "user_agent": "", // set Puppeteers user agent
+    "save_session": false, // ability to save browser session to file. Used to restore session when bot closing browser during sleep (see next option - close_browser_sleep) 
+    "close_browser_sleep": false,  // close browser when bot sleeps
 
     // LOG
     "pin_path":"./node_modules/twitterbotlib/loginpin.txt",

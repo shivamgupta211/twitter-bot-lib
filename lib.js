@@ -73,7 +73,7 @@ module.exports = function(config) {
         bot = await browser.newPage();
         bot.setViewport({ "width": 1024, "height": 768 });
         let user_agent = await browser.userAgent();
-        bot.setUserAgent(user_agent.replace("Headless",""));
+        bot.setUserAgent(config.user_agent || user_agent.replace("Headless", ""));
 
         /**
          * Import libs
@@ -97,7 +97,7 @@ module.exports = function(config) {
         async function switch_mode(log) {
             let strategy = routes[config.bot_mode];
             if (strategy !== undefined) {
-                await strategy(bot, config, utils).start();
+                await strategy(bot, config, utils, browser).start();
             } else {
                 log(LOG.ERROR, "switch_mode", `mode ${strategy} not exist!`);
             }
